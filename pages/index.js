@@ -21,7 +21,7 @@ export default function Home() {
     <div className="profileArea" style={{gridArea:"profileArea"}}>
     <ProfileSidebar githubUser={usuario} />
     </div>
-    <div className="profileArea" style={{gridArea:"welcomeArea"}}> 
+    <div className="welcomeArea" style={{gridArea:"welcomeArea"}}> 
       <Box>
         <h1>
         Bem Vindo(a)
