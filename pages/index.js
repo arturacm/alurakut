@@ -4,6 +4,7 @@ import {AlurakutMenu, OrkutNostalgicIconSet} from "../src/lib/AlurakutCommons"
 import { ProfileRelationsBoxWrapper } from '../src/components/ProfileRelations';
 
 function ProfileSidebar(props){
+  console.log(props);
 return(
   <Box >
     <img src={`https://github.com/${props.githubUser}.png`} style={{borderRadius: "8px"}} />
@@ -16,14 +17,14 @@ export default function Home() {
   const pessoasFavoritas = ["juunegreiros", "omariosouto", "peas", "filipedeschamps"]
   return (
     <>
-  <AlurakutMenu/>
+  <AlurakutMenu />
   <MainGrid>
     <div className="profileArea" style={{gridArea:"profileArea"}}>
     <ProfileSidebar githubUser={usuario} />
     </div>
     <div className="welcomeArea" style={{gridArea:"welcomeArea"}}> 
       <Box>
-        <h1>
+        <h1 className= "title">
         Bem Vindo(a)
         </h1>
         <OrkutNostalgicIconSet/>

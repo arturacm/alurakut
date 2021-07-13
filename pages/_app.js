@@ -17,17 +17,17 @@ const GlobalStyle = createGlobalStyle`
     flex-direction: column;
   }
   img{
-    width:100%;
+    max-width:100%;
     height: auto;
     display: block;
   }
 
-  ${AlurakutStyles};
+  ${AlurakutStyles}
 `
 
 const theme = {
   colors: {
-    primary: '#red',
+    primary: 'red',
   },
 }
 
