@@ -22,11 +22,35 @@ return(
 
 export default function Home() {
   const usuario = "arturacm"
-  const pessoasFavoritas = ["juunegreiros", "omariosouto", "peas", "filipedeschamps"]
+  const pessoasFavoritas = ["juunegreiros", "omariosouto", "peas", "filipedeschamps","arturacm","arturacm","filipedeschamps"]
   const [comunidades,setComunidades] = React.useState([{
     id: "12353245345234262423234",
     title: "Eu odeio Acordar cedo",
-    image: `http://placehold.it/300x300`
+    image: `https://img10.orkut.br.com/community/52cc4290facd7fa700b897d8a1dc80aa.jpg`
+  },{
+    id: "2w123123121521341",
+    title: "Discografias",
+    image: "https://img10.orkut.br.com/community/f50f08c3f0acf3519578cbc92f81089c.jpg"
+  },{
+    id: "2w12312312152134143",
+    title: "Lenin, de três",
+    image: "https://img10.orkut.br.com/community/f0131f9cec84100d3b7e02bd8a9323c2.jpg"
+  },{
+    id: "2w1231231215213414343",
+    title: "Foda é meu pai. Eu sou Fodinha",
+    image: "https://img10.orkut.br.com/community/7b37fa056937aeeb0ff8b9d6d55c349f.jpg"
+  },{
+    id: "2w123123121521341434123",
+    title: "Eu furo o olho da Gina do Palito",
+    image: "http://3.bp.blogspot.com/-hWsDULghGBI/T0Dm-elYHKI/AAAAAAAACNs/L-6mjVp7_s4/s1600/GRD_770_palito+gina.jpg"
+  },{
+    id: "2w1231231215213414q34123",
+    title: "Um Mamão Vai na Cabeça",
+    image: "https://img10.orkut.br.com/community/182ed03574e9671d021058ba7e148cc5.jpg"
+  },{
+    id: "2w12312231215213414q34123",
+    title: "Brasil Ragnarok Online",
+    image: "https://img10.orkut.br.com/community/dafbf0f0e6d7c7311b24a0c41182472f.png"
     }])
 
   return (
@@ -59,7 +83,7 @@ export default function Home() {
             image: formData.get("image")
 
           }
-          const novasComunidades = [...comunidades,newComunidade]
+          const novasComunidades = [newComunidade,...comunidades ]
 
           setComunidades(novasComunidades);
         }}>
@@ -86,11 +110,12 @@ export default function Home() {
     <div className= "profileRelationsArea" style={{gridArea: "profileRelationsArea"}}>
       <ProfileRelationsBoxWrapper>
         <h2 className="smallTitle">
-          Pessoas da Comunidade{pessoasFavoritas.length})
+          Pessoas da Comunidade({pessoasFavoritas.length})
         </h2>
         <ul>
-        {pessoasFavoritas.map((pessoa)=>{
-          return(
+        {pessoasFavoritas.map((pessoa,i)=>{
+          
+          if (i<6)return(
            <li key={pessoa}>
            <a href= {`/users/${pessoa}`} >
               <img src={`https://github.com/${pessoa}.png`}/>
@@ -108,8 +133,8 @@ export default function Home() {
           Comunidade({comunidades.length})
         </h2>
         <ul>
-        {comunidades.map((comunidade)=>{
-          return(
+        {comunidades.map((comunidade, i)=>{
+          if(i<6) return(
            <li key={comunidade.id}>
            <a href= {`/users/${comunidade.title}`} >
               <img src={comunidade.image}/>
