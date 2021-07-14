@@ -19,10 +19,47 @@ return(
   </Box>
 )
 }
+function ProfileRelationsBox(props){
+  return (
+    <ProfileRelationsBoxWrapper>
+        <h2 className="smallTitle">
+          {props.title}({props.items.length})
+        </h2>
+        <ul>
+        { 
+        props.items.map((pessoa,i)=>{
+          
+          if (i<6)return(
+           <li key={pessoa.id}>
+           <a href= {`/users/${pessoa.login}`} >
+              <img src={pessoa.avatar_url}/>
+              <span>{pessoa.login}</span>
+            </a>
 
+           </li>
+          )
+        })} 
+
+        </ul>
+      </ProfileRelationsBoxWrapper>
+  )
+}
 export default function Home() {
   const usuario = "arturacm"
   const pessoasFavoritas = ["juunegreiros", "omariosouto", "peas", "filipedeschamps","arturacm","arturacm","filipedeschamps"]
+  
+  const [seguidores, setSeguidores] = React.useState([]);
+
+  React.useEffect(()=>{
+    fetch(`https://api.github.com/users/${usuario}/following`)
+    .then((res)=>res.ok?res.json():false)
+    .then(fullRes=>{
+      console.log(fullRes)
+      setSeguidores(fullRes);
+    })
+
+  },[])
+  
   const [comunidades,setComunidades] = React.useState([{
     id: "12353245345234262423234",
     title: "Eu odeio Acordar cedo",
@@ -106,8 +143,13 @@ export default function Home() {
           </button>
         </form>
       </Box>
+
     </div>
+
     <div className= "profileRelationsArea" style={{gridArea: "profileRelationsArea"}}>
+      
+      <ProfileRelationsBox title="Seguidores" items = {seguidores}/>
+      
       <ProfileRelationsBoxWrapper>
         <h2 className="smallTitle">
           Pessoas da Comunidade({pessoasFavoritas.length})
