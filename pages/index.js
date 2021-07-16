@@ -58,8 +58,38 @@ export default function Home() {
       setSeguidores(fullRes);
     })
 
+    fetch('https://graphql.datocms.com/', {
+      method: 'POST',
+      headers: {
+        'Authorization': '525301761155a5b6a65da57a470287',
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+      },
+      body: JSON.stringify({ "query": `query {
+        allCommunities {
+          id 
+          title
+          imageUrl
+          creatorSlug
+        }
+      }` })
+    })
+    .then((response) => response.json()) // Pega o retorno do response.json() e já retorna
+    .then((respostaCompleta) => {
+      const comunidadesVindasDoDato = respostaCompleta.data.allCommunities;
+      console.log(comunidadesVindasDoDato)
+      setComunidades(comunidadesVindasDoDato)
+    })
+
+
+
+
+
+
+
   },[])
-  
+
+
   const [comunidades,setComunidades] = React.useState([{
     id: "12353245345234262423234",
     title: "Eu odeio Acordar cedo",
@@ -114,15 +144,30 @@ export default function Home() {
           console.log(e)
           const formData = new FormData(e.target)
           console.log(formData.get("title"), formData.get("image"))
-          const newComunidade = {
-            id: new Date().toISOString(),
+          const comunidade = {
             title: formData.get("title"),
-            image: formData.get("image")
+            imageUrl: formData.get("image"),
+            creatorSlug: usuario
 
           }
-          const novasComunidades = [newComunidade,...comunidades ]
 
-          setComunidades(novasComunidades);
+          fetch(`/api/comunidades`,{
+            method: 'POST',
+            headers: {
+              'Content-Type' : 'application/json'
+              
+            },
+            body: JSON.stringify(comunidade)
+          })
+          .then(async(response)=>{
+            const dados = await response.json();
+
+            console.log(dados.registroCriado)
+
+            const comunidadesAtualizadas = [comunidade,...comunidades ]
+  
+            setComunidades(comunidadesAtualizadas);
+          })
         }}>
           <div>
             <input 
@@ -178,8 +223,8 @@ export default function Home() {
         {comunidades.map((comunidade, i)=>{
           if(i<6) return(
            <li key={comunidade.id}>
-           <a href= {`/users/${comunidade.title}`} >
-              <img src={comunidade.image}/>
+           <a href= {`/communities/${comunidade.id}`} >
+              <img src={comunidade.imageUrl}/>
               <span>{comunidade.title}</span>
             </a>
 
